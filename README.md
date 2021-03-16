@@ -30,7 +30,17 @@ There are 2 smart contracts responsible for the supply chain functionality:
 
 Interaction with _CoffeeProduction_ takes place during the phases of coffee harvesting and manufacturing. _CoffeeOwnership_ is called whenever a new sack and/or product is created or traded. Furthermore, a verification process that exchanges information between the 2 smart contracts can be used.
 
-![alt text] Flow (docs/img/flow.png)
+### Flow
+1. Harvest coffee
+2. Set initial owner of harvested sacks
+3. Trade coffee (Change owner: Harvest Facility -> Product Manufacturer)
+4. Manufacture product
+5. Set initial owner of product
+6. Retailer can pre-validate
+7. Trade product (Change owner: Product Manufacturer -> Retailer)
+--- Verify coffee origins at any time
+
+![alt text](docs/img/flow.png)
 
 ### Potential issues
 1. Dependency on the coffee harvest facility to be truthful and use only certified coffee and not, for example, buy coffee beans from some non-certified vendor and then simply pose as if they were harvested by him.
