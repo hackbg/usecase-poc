@@ -43,7 +43,8 @@ Interaction with _CoffeeProduction_ takes place during the phases of coffee harv
 ![alt text](docs/img/flow.png)
 
 ### Potential issues
-1. Dependency on the coffee harvest facility to be truthful and use only certified coffee and not, for example, buy coffee beans from some non-certified vendor and then simply pose as if they were harvested by him.
-This could potentially be solved by adding an independent certifier who is the sole issuer of valid certificate id numbers, which could be added as a of a Sack. Then, the sack harvesting process would include a check if the sack to be harvested has an unused valid certificated id as an extra step.
-However, this process still includes relying on a single physical entity to act truthfully when issuing some sort of physical certification. Therefore, I consider that the issue will still have the same underlying problem at its core even if an independent certifier was added to the logic.
+1. Dependency on the coffee harvest facility to be truthful and use only certified coffee and not, for example, buy coffee beans from some non-certified vendor and then simply pose as if they were harvested as certified beans.
+This could potentially be solved by adding an independent certifier who is the sole issuer of valid certificate id numbers, which could be added to the properties of a Sack. Then, the sack harvesting process would include a check if the sack _to-be-harvested_ has a valid and not yet used certificate id number.
+However, this process still includes relying on a single physical entity to act truthfully when issuing some sort of physical certification.
+Therefore, I consider that the issue will still have the same underlying problem at its core even if an independent certifier was added to the process flow.
 2. The process representation is overly simplified and there might be a lot of missing and/or incorrectly presented pieces which could prove essential, but this should serve only as a PoC demo.
