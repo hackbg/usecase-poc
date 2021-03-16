@@ -1,0 +1,23 @@
+{
+  "name": "supply-chain-poc",
+  "version": "1.0.0",
+  "description": "A PoC demo of a blockchain based supply chain dApp for the overly simplified cycle of coffee harvest, production and distribution by retailers.",
+  "main": "truffle-config.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aleksandar-had/supply-chain-poc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aleksandar-had/supply-chain-poc/issues"
+  },
+  "homepage": "https://github.com/aleksandar-had/supply-chain-poc#readme"
+}
