@@ -11,13 +11,13 @@ contract("CoffeeProduction", async (accounts) => {
     const productionDate = "24 Sep 2020";
     const serialNumber = "0003001";
 
-    var _ = await instance.harvestSack(beanType, serialNumber, productionDate, {
+    var _ = await instance.harvestSack(serialNumber, beanType, productionDate, {
       from: accounts[0],
     });
     let sackHash = web3.utils.soliditySha3(
       accounts[0],
-      web3.utils.fromAscii(beanType),
       web3.utils.fromAscii(serialNumber),
+      web3.utils.fromAscii(beanType),
       web3.utils.fromAscii(productionDate)
     );
     let res = await instance.sacks(sackHash);
@@ -42,8 +42,8 @@ contract("CoffeeProduction", async (accounts) => {
     let sacksHash = [];
     for (var i = 0; i < serialNumbers.length; i++) {
       res = await instance.harvestSack(
-        beanTypes[i],
         serialNumbers[i],
+        beanTypes[i],
         harvestDate,
         {
           from: accounts[0],
@@ -52,8 +52,8 @@ contract("CoffeeProduction", async (accounts) => {
       sacksHash.push(
         web3.utils.soliditySha3(
           accounts[0],
-          web3.utils.fromAscii(beanTypes[i]),
           web3.utils.fromAscii(serialNumbers[i]),
+          web3.utils.fromAscii(beanTypes[i]),
           web3.utils.fromAscii(harvestDate)
         )
       );
@@ -64,8 +64,8 @@ contract("CoffeeProduction", async (accounts) => {
     const productionDate = "13 Oct 2020";
 
     res = await instance.manufactureProduct(
-      productType,
       productSerialNumber,
+      productType,
       productionDate,
       sacksHash,
       { from: accounts[0] }
@@ -73,8 +73,8 @@ contract("CoffeeProduction", async (accounts) => {
 
     const productHash = web3.utils.soliditySha3(
       accounts[0],
-      web3.utils.fromAscii(productType),
       web3.utils.fromAscii(productSerialNumber),
+      web3.utils.fromAscii(productType),
       web3.utils.fromAscii(productionDate)
     );
 

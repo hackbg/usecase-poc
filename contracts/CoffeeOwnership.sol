@@ -33,9 +33,9 @@ contract CoffeeOwnership {
     mapping(bytes32 => address) public sackToOwner;
     mapping(bytes32 => address) public productToOwner;
 
-    event SackOwnerChange(bytes32 indexed sackHash, address indexed newOwner);
+    event SackOwnerChange(bytes32 indexed itemHash, address indexed newOwner);
     event ProductOwnerChange(
-        bytes32 indexed productHash,
+        bytes32 indexed itemHash,
         address indexed newOwner
     );
 

@@ -27,15 +27,15 @@ contract CoffeeProduction {
     }
 
     function harvestSack(
-        string calldata beanType,
         string calldata serialNumber,
+        string calldata beanType,
         string calldata productionDate
     ) public returns (bytes32) {
         bytes32 sackHash =
             _hashInformation(
                 msg.sender,
-                beanType,
                 serialNumber,
+                beanType,
                 productionDate
             );
 
@@ -52,8 +52,8 @@ contract CoffeeProduction {
     }
 
     function manufactureProduct(
-        string calldata productType,
         string calldata serialNumber,
+        string calldata productType,
         string calldata productionDate,
         bytes32[5] calldata sackArray
     ) public returns (bytes32) {
@@ -67,8 +67,8 @@ contract CoffeeProduction {
         bytes32 productHash =
             _hashInformation(
                 msg.sender,
-                productType,
                 serialNumber,
+                productType,
                 productionDate
             );
 
