@@ -6,14 +6,13 @@ contract CoffeeProduction {
     struct Sack {
         address producer;
         string beanType;
-        string serialNumber;
         string productionDate;
+        bool used;
     }
 
     struct Product {
         address producer;
         string productType;
-        string serialNumber;
         string productionDate;
         bytes32[5] usedSacks;
     }
@@ -21,23 +20,23 @@ contract CoffeeProduction {
     uint256 public startDate;
     mapping(bytes32 => Sack) public sacks;
     mapping(bytes32 => Product) public products;
+    mapping(bytes32 => bool) public itemCreated;
 
     constructor() {
         startDate = block.timestamp;
     }
 
+    modifier itemNotCreated(bytes32 _itemHash) {
+        require(itemCreated[_itemHash] == false);
+        _;
+    }
+
     function harvestSack(
-        string calldata serialNumber,
         string calldata beanType,
         string calldata productionDate
     ) public returns (bytes32) {
         bytes32 sackHash =
-            _hashInformation(
-                msg.sender,
-                serialNumber,
-                beanType,
-                productionDate
-            );
+            _hashInformation(msg.sender, beanType, productionDate);
 
         // Prevents the harvesting of two sacks with the same hash
         require(
@@ -46,31 +45,26 @@ contract CoffeeProduction {
         );
 
         Sack memory harvested =
-            Sack(msg.sender, beanType, serialNumber, productionDate);
+            Sack(msg.sender, beanType, productionDate, false);
         sacks[sackHash] = harvested;
         return sackHash;
     }
 
     function manufactureProduct(
-        string calldata serialNumber,
         string calldata productType,
         string calldata productionDate,
         bytes32[5] calldata sackArray
     ) public returns (bytes32) {
-        for (uint256 i = 0; i < 5; i++) {
+        for (uint8 i = 0; i < 5; i++) {
             require(
-                sacks[sackArray[i]].producer != address(0),
+                sacks[sackArray[i]].producer != address(0) &&
+                    sacks[sackArray[i]].used == false,
                 "Product must contain only verified harvested sacks"
             );
         }
 
         bytes32 productHash =
-            _hashInformation(
-                msg.sender,
-                serialNumber,
-                productType,
-                productionDate
-            );
+            _hashInformation(msg.sender, productType, productionDate);
 
         // Prevents the manufacturing of two products with the same hash
         require(
@@ -79,13 +73,11 @@ contract CoffeeProduction {
         );
 
         Product memory newProduct =
-            Product(
-                msg.sender,
-                productType,
-                serialNumber,
-                productionDate,
-                sackArray
-            );
+            Product(msg.sender, productType, productionDate, sackArray);
+
+        for (uint8 i = 0; i < 5; i++) {
+            sacks[sackArray[i]].used = true;
+        }
         products[productHash] = newProduct;
         return productHash;
     }
@@ -105,17 +97,14 @@ contract CoffeeProduction {
     function _hashInformation(
         address _addr,
         string calldata _str1,
-        string calldata _str2,
         string calldata _date
     ) private pure returns (bytes32) {
         // Parameters to bytes type
         bytes20 bAddr = bytes20(_addr);
         bytes memory bStr1 = bytes(_str1);
-        bytes memory bStr2 = bytes(_str2);
         bytes memory bDate = bytes(_date);
 
-        uint256 totalLen =
-            bAddr.length + bStr1.length + bStr2.length + bDate.length;
+        uint256 totalLen = bAddr.length + bStr1.length + bDate.length;
 
         string memory strFull = new string(totalLen);
         bytes memory bFull = bytes(strFull);
@@ -128,10 +117,6 @@ contract CoffeeProduction {
         }
         for (uint256 i = 0; i < bStr1.length; i++) {
             bFull[j] = bStr1[i];
-            j++;
-        }
-        for (uint256 i = 0; i < bStr2.length; i++) {
-            bFull[j] = bStr2[i];
             j++;
         }
         for (uint256 i = 0; i < bDate.length; i++) {

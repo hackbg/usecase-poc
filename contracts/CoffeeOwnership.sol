@@ -6,14 +6,13 @@ abstract contract CoffeeProductionABI {
     struct Sack {
         address producer;
         string beanType;
-        string serialNumber;
         string productionDate;
+        bool used;
     }
 
     struct Product {
         address producer;
         string productType;
-        string serialNumber;
         string productionDate;
         bytes32[5] usedSacks;
     }
@@ -60,7 +59,7 @@ contract CoffeeOwnership {
     }
 
     function addProductOwner(bytes32 productHash) public {
-        (address producer, , , ) = productionAbi.products(productHash);
+        (address producer, , ) = productionAbi.products(productHash);
         require(
             productToOwner[productHash] == address(0),
             "Sack already has an owner"
