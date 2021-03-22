@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coffee Supply Chain</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.4/web3.min.js"
+      integrity="sha512-TTGImODeszogiro9DUvleC9NJVnxO6M0+69nbM3YE9SYcVe4wZp2XYpELtcikuFZO9vjXNPyeoHAhS5DHzX1ZQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./sacks.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="brown darken-4">
+        <div class="nav-wrapper">
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="index.html">Coffee Harvester</a></li>
+            <li><a href="product.html">Product Manufacturer</a></li>
+            <li><a href="retailer.html">Retailer</a></li>
+          </ul>
+        </div>
+      </nav>
+      <h2>Sacks harvester</h2>
+      <div class="row">
+        <div class="col s6">
+          <label>Address</label>
+          <p id="sack-harvester-address"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <label>Bean type: </label>
+          <select id="harvest-bean-type" class="browser-default">
+            <option>Arabica</option>
+            <option>Robusta</option>
+            <option>Liberica</option>
+            <option>Excelsa</option>
+          </select>
+          <button
+            id="harvest-sack"
+            class="waves-effect waves-light btn brown darken-4"
+          >
+            Harvest sack
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div id="sack-list" class="collection with-header">
+          <p class="collection-header">Sacks owned</p>
+        </div>
+      </div>
+      <div class="col s6">
+        <div class="sack-list-details">
+          <label>Harvester address:</label>
+          <p id="sack-details-address"></p>
+          <label>Bean type:</label>
+          <p id="sack-details-bean-type"></p>
+          <label>Creation date:</label>
+          <p id="sack-details-production-date"></p>
+          <input
+            type="text"
+            id="sack-change-ownership-input"
+            placeholder="New owner address"
+          />
+          <button
+            id="sack-change-ownership-btn"
+            class="waves-effect waves-light btn brown darken-4"
+          >
+            Change owner
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

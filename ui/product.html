@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coffee Supply Chain</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.3.4/web3.min.js"
+      integrity="sha512-TTGImODeszogiro9DUvleC9NJVnxO6M0+69nbM3YE9SYcVe4wZp2XYpELtcikuFZO9vjXNPyeoHAhS5DHzX1ZQ=="
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="./products.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <nav class="brown darken-4">
+        <div class="nav-wrapper">
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="index.html">Coffee Harvester</a></li>
+            <li><a href="product.html">Product Manufacturer</a></li>
+            <li><a href="retailer.html">Retailer</a></li>
+          </ul>
+        </div>
+      </nav>
+      <h2>Product Manufacturer</h2>
+      <div class="row">
+        <div class="col s6">
+          <label>Address: </label>
+          <p id="product-manufacturer-address"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <div id="product-sack-list" class="collection with-header">
+            <p class="collection-header">Sacks in stock</p>
+          </div>
+        </div>
+        <div class="col s6">
+          <label>Product type: </label>
+          <select id="manufacture-product-type" class="browser-default">
+            <option>Can-Ground</option>
+            <option>Bag-Ground</option>
+            <option>Bag-Beans</option>
+            <option>Special-Edition-Beans</option>
+          </select>
+          <button
+            id="manufacture-product"
+            class="waves-effect waves-light btn brown darken-4"
+          >
+            Manufacture product
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12">
+          <div id="product-list" class="collection with-header">
+            <p class="collection-header">Products owned</p>
+          </div>
+        </div>
+        <div class="col s6">
+          <div class="product-list-details">
+            <label>Manufacturer address:</label>
+            <p id="product-details-address"></p>
+            <label>Product type:</label>
+            <p id="product-details-type"></p>
+            <label>Sacks:</label>
+            <p id="product-details-sacks"></p>
+            <label>Creation date:</label>
+            <p id="product-details-production-date"></p>
+            <input
+              type="text"
+              id="product-change-ownership-input"
+              placeholder="New owner address"
+            />
+            <button
+              id="product-change-ownership-btn"
+              class="waves-effect waves-light btn brown darken-4"
+            >
+              Change owner
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
