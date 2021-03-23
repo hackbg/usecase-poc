@@ -14,6 +14,7 @@
       integrity="sha512-TTGImODeszogiro9DUvleC9NJVnxO6M0+69nbM3YE9SYcVe4wZp2XYpELtcikuFZO9vjXNPyeoHAhS5DHzX1ZQ=="
       crossorigin="anonymous"
     ></script>
+    <script type="module" src="./modules/retailer.js"></script>
   </head>
 
   <body>
@@ -31,24 +32,24 @@
         <div class="col s6">
           <h2>Retailer</h2>
           <label>Address: </label>
-          <p id="dealer-address"></p>
+          <p id="retailer-address"></p>
         </div>
       </div>
       <div class="row">
-        <div class="col s6">
+        <div class="col s12">
           <div id="product-history" class="collection with-header">
             <p class="collection-header">Product history</p>
           </div>
-          <div id="product-details">
+          <div id="product-details" class="col s6">
             <label>Owners: </label>
             <p id="product-owners"></p>
           </div>
         </div>
-        <div class="col s6">
+        <div class="col s12">
           <div id="sack-history" class="collection with-header">
-            <p class="collection-header">Sacks history</p>
+            <p class="collection-header">Sack history</p>
           </div>
-          <div id="sack-details">
+          <div id="sack-details" class="col s6">
             <label>Owners: </label>
             <p id="sack-owners"></p>
           </div>
