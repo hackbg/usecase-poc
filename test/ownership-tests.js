@@ -12,19 +12,12 @@ contract("CoffeeOwnership", async (accounts) => {
   it("Should set owner to producer when sack is harvested", async () => {
     const beanType = "Arabica";
     const productionDate = "24 Sep 2020";
-    const serialNumber = "0003001";
-    var _ = await production.harvestSack(
-      serialNumber,
-      beanType,
-      productionDate,
-      {
-        from: accounts[0],
-      }
-    );
+    var _ = await production.harvestSack(beanType, productionDate, {
+      from: accounts[0],
+    });
 
     let sackHash = web3.utils.soliditySha3(
       accounts[0],
-      web3.utils.fromAscii(serialNumber),
       web3.utils.fromAscii(beanType),
       web3.utils.fromAscii(productionDate)
     );
@@ -35,22 +28,15 @@ contract("CoffeeOwnership", async (accounts) => {
   });
 
   it("Should change owner when current owner trades", async () => {
-    const beanType = "Arabica";
+    const beanType = "Robusta";
     const productionDate = "24 Sep 2020";
-    const serialNumber = "0003002";
 
-    var _ = await production.harvestSack(
-      serialNumber,
-      beanType,
-      productionDate,
-      {
-        from: accounts[0],
-      }
-    );
+    var _ = await production.harvestSack(beanType, productionDate, {
+      from: accounts[0],
+    });
 
     let sackHash = web3.utils.soliditySha3(
       accounts[0],
-      web3.utils.fromAscii(serialNumber),
       web3.utils.fromAscii(beanType),
       web3.utils.fromAscii(productionDate)
     );

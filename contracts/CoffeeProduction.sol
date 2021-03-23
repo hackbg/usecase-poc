@@ -20,15 +20,9 @@ contract CoffeeProduction {
     uint256 public startDate;
     mapping(bytes32 => Sack) public sacks;
     mapping(bytes32 => Product) public products;
-    mapping(bytes32 => bool) public itemCreated;
 
     constructor() {
         startDate = block.timestamp;
-    }
-
-    modifier itemNotCreated(bytes32 _itemHash) {
-        require(itemCreated[_itemHash] == false);
-        _;
     }
 
     function harvestSack(
