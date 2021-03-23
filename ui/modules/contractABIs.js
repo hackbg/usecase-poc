@@ -18,13 +18,6 @@ const productABI = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "bytes32", name: "", type: "bytes32" }],
-    name: "itemCreated",
-    outputs: [{ internalType: "bool", name: "", type: "bool" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       { internalType: "string", name: "productType", type: "string" },
       { internalType: "string", name: "productionDate", type: "string" },

@@ -5,11 +5,11 @@ export async function initContracts(web3Instance) {
   console.log("Accounts successfully loaded");
 
   window.product = new web3Instance.eth.Contract(productABI);
-  window.product.options.address = "0xCe07c7428561714237eB89D40BBC8eEBa8f6C717";
+  window.product.options.address = "0x73E556Ab0658EDd64d05f15151f7E0392584E160";
 
   window.ownership = new web3Instance.eth.Contract(ownershipABI);
   window.ownership.options.address =
-    "0x4cDC1b4b525C0df8D8A24b2F8E47705082914BF7";
+    "0x3C411ecEe9774E7d438BFA0947038408a60F7350";
 }
 
 export function fillSackDetails(sack) {
@@ -54,13 +54,11 @@ export function fillSackDetails(sack) {
 }
 
 export function fillProductDetails(prod) {
-  console.log("Fill sack details from blockchain");
   window.product.methods
     .products(prod)
     .call({ from: window.accounts[0] }, function (err, res) {
       if (err) console.log(err);
       else {
-        console.log("Product info fetched");
         document.getElementById("product-details-address").innerHTML =
           res["producer"];
         document.getElementById("product-details-production-date").innerHTML =
@@ -86,9 +84,7 @@ export function fillProductDetails(prod) {
                 .call({ from: window.accounts[0] }, function (err, res) {
                   if (err) console.log(err);
                   else {
-                    console.log(res);
                     if (res === "0x0000000000000000000000000000000000000000") {
-                      console.log("address(0) => first owner not registered");
                       window.ownership.methods
                         .addProductOwner(prod)
                         .send(
@@ -120,11 +116,11 @@ export function clearProductDetails() {
 }
 
 export function clearSackOwners() {
-  document.getElementById("sack-owners"), (innerHTML = "");
+  document.getElementById("sack-owners").innerHTML = "";
 }
 
 export function clearProductOwners() {
-  document.getElementById("product-owners"), (innerHTML = "");
+  document.getElementById("product-owners").innerHTML = "";
 }
 
 export function formatDate() {
@@ -251,7 +247,7 @@ export async function getItemsFromEvent(addr, event) {
 export function fillOwnerDetails(owners, list) {
   var ownerDetails = "";
   for (const owner of owners) {
-    ownerDetails += owner + " ";
+    ownerDetails = ownerDetails.concat(owner, "\n");
   }
   document.getElementById(list).innerHTML = ownerDetails;
 }
@@ -261,8 +257,7 @@ export async function retailerSackListManager() {
   clearActiveExcept(this);
 
   if (this.classList.contains("active")) {
-    var res = await getOwnersFromEvents("SackOwnerChange", this.textContent);
-    console.log(res);
+    var res = await getOwnersFromEvents(this.innerHTML, "SackOwnerChange");
     fillOwnerDetails(res, "sack-owners");
   } else {
     clearSackOwners();
@@ -274,11 +269,15 @@ export async function retailerProductListManager() {
   clearActiveExcept(this);
 
   if (this.classList.contains("active")) {
-    var res = await getOwnersFromEvents("ProductOwnerChange", this.textContent);
-    console.log(res);
+    clearSackOwners();
+    clearRetailerSacks();
+    var res = await getOwnersFromEvents(this.innerHTML, "ProductOwnerChange");
     fillOwnerDetails(res, "product-owners");
+    await showRetailerProductSacks(this.innerHTML);
   } else {
     clearProductOwners();
+    clearSackOwners();
+    clearRetailerSacks();
   }
 }
 
@@ -290,7 +289,6 @@ TODO: find a better solution to load ONLY the currently owned sacks.
 */
 export async function showHarvesterSacks() {
   var sacks = await getItemsFromEvent(window.accounts[0], "SackOwnerChange");
-  console.log(sacks);
   for (const sack of sacks) {
     var owners = await getOwnersFromEvents(sack, "SackOwnerChange");
     if (owners[owners.length - 1] == window.accounts[0]) {
@@ -307,7 +305,6 @@ TODO: find a better solution to load ONLY the currently owned sacks.
 */
 export async function showManufacturerSacks() {
   var sacks = await getItemsFromEvent(window.accounts[1], "SackOwnerChange");
-  console.log(sacks);
   for (const sack of sacks) {
     var owners = await getOwnersFromEvents(sack, "SackOwnerChange");
     var lastOwner = owners[owners.length - 1];
@@ -338,13 +335,43 @@ export async function showManufacturerProducts() {
     window.accounts[1],
     "ProductOwnerChange"
   );
-  console.log(products);
   for (const prod of products) {
     var owners = await getOwnersFromEvents(prod, "ProductOwnerChange");
     var lastOwner = owners[owners.length - 1];
 
     if (lastOwner === window.accounts[1]) {
       addItemToList(prod, "product-list", productListManager);
+    }
+  }
+}
+
+export async function showRetailerProductSacks(prod) {
+  var sacks = await window.product.methods
+    .getSacks(prod)
+    .call({ from: window.accounts[0] });
+
+  for (const sack of sacks) {
+    addItemToList(sack, "sack-history", retailerSackListManager);
+  }
+}
+
+export async function showRetailerProducts() {
+  var products = await getItemsFromEvent(
+    window.accounts[2],
+    "ProductOwnerChange"
+  );
+  for (const prod of products) {
+    addItemToList(prod, "product-history", retailerProductListManager);
+  }
+}
+
+export function clearRetailerSacks() {
+  var parent = document.getElementById("sack-history");
+  while (parent.lastChild) {
+    if (parent.lastChild.innerHTML == "Sack history") {
+      break;
+    } else {
+      parent.lastChild.remove();
     }
   }
 }
