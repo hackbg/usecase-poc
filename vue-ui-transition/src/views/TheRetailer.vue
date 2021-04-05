@@ -1,12 +1,10 @@
 <template>
   <body>
     <div class="container">
-      <h2>Retailer</h2>
-
-      <div class="row">
-        <label>Address: </label>
-        <p>{{ retailerAddress }}</p>
-      </div>
+      <address-title
+        title="Retailer"
+        :address="retailerAddress"
+      ></address-title>
       <div class="row">
         <div class="collection with-header">
           <p class="collection-header">Products</p>
@@ -63,7 +61,7 @@
 </template>
 
 <script>
-import GenericItemHash from "./GenericItemHash.vue";
+import GenericItemHash from "@/components/GenericItemHash.vue";
 
 export default {
   components: {

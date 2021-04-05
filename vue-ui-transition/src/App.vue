@@ -3,7 +3,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Coffee Supply Chain</title>
-    <!-- <script type="module" src="./modules/sacks.js"></script> -->
   </head>
   <the-navigation></the-navigation>
   <main>
@@ -21,8 +20,8 @@
 </template>
 
 <script>
-import TheNavigation from "./components/nav/TheNavigation.vue";
-import { productABI, ownershipABI } from "./libs/ContractABIs.js";
+import TheNavigation from "@/components/nav/TheNavigation.vue";
+import { productABI, ownershipABI } from "@/libs/ContractABIs.js";
 import Web3 from "web3";
 
 export default {

@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
-import TheHarvester from "../components/TheHarvester.vue";
-import TheManufacturer from "../components/TheManufacturer.vue";
-import TheRetailer from "../components/TheRetailer.vue";
-import NotFound from "../components/NotFound.vue";
+import TheHarvester from "@/views/TheHarvester.vue";
+import TheManufacturer from "@/views/TheManufacturer.vue";
+import TheRetailer from "@/views/TheRetailer.vue";
+import NotFound from "@/views/NotFound.vue";
 
 const routes = [
   {

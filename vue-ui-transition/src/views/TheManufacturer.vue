@@ -1,11 +1,10 @@
 <template>
   <body>
     <div class="container">
-      <h2>Product Manufacturer</h2>
-      <div class="row">
-        <label>Address: </label>
-        <p>{{ manufacturerAddress }}</p>
-      </div>
+      <address-title
+        title="Product Manufacturer"
+        :address="manufacturerAddress"
+      ></address-title>
       <div class="row">
         <div class="collection with-header">
           <p class="collection-header">Sacks in stock</p>
@@ -66,10 +65,10 @@
 </template>
 
 <script>
-import ManufacturerSacks from "./ManufacturerSacks.vue";
-import ProductType from "./ProductType.vue";
-import ProductDetails from "./ProductDetails.vue";
-import GenericItemHash from "./GenericItemHash.vue";
+import ManufacturerSacks from "@/components/manufacturer/ManufacturerSacks.vue";
+import ProductType from "@/components/manufacturer/ProductType.vue";
+import ProductDetails from "@/components/manufacturer/ProductDetails.vue";
+import GenericItemHash from "@/components/GenericItemHash.vue";
 
 export default {
   props: [

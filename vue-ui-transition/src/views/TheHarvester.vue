@@ -1,11 +1,10 @@
 <template>
   <body>
     <div class="container">
-      <h2>Sacks harvester</h2>
-      <div class="row">
-        <label>Address</label>
-        <p>{{ harvesterAddress }}</p>
-      </div>
+      <address-title
+        title="Coffee Harvester"
+        :address="harvesterAddress"
+      ></address-title>
       <sack-type @harvestSack="harvestSack"></sack-type>
       <div class="collection with-header">
         <p class="collection-header">Sacks in stock</p>
@@ -40,9 +39,9 @@
 </template>
 
 <script>
-import SackDetails from "./SackDetails.vue";
-import SackType from "./SackType.vue";
-import GenericItemHash from "./GenericItemHash.vue";
+import SackDetails from "@/components/harvester/SackDetails.vue";
+import SackType from "@/components/harvester/SackType.vue";
+import GenericItemHash from "@/components/GenericItemHash.vue";
 export default {
   components: {
     SackDetails,
